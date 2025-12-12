@@ -6,10 +6,10 @@
 #include <map>
 #include <unordered_map>
 
-class IndexStore 
+class IndexStore
 {
 public:
-    struct IndexingData 
+    struct IndexingData
     {
         // Use map sorted by frequency in descending order
         std::map<unsigned int, std::string, std::greater<unsigned int>> list;
@@ -19,13 +19,13 @@ public:
         IndexingData() = default;
         ~IndexingData() = default;
 
-        IndexingData(unsigned int frequency, const std::string& filePath) 
+        IndexingData(unsigned int frequency, const std::string& filePath)
         {
             if (list.size() < IndexingData::MAX_SIZE)
             {
                 list.emplace(frequency, filePath);
             }
-            else if (frequency > list.rbegin()->first) 
+            else if (frequency > list.rbegin()->first)
             {
                 // Remove the least frequent entry if new frequency is higher
                 list.erase(--list.end());
