@@ -2,12 +2,14 @@
 
 ### Custom command
 
-The server command is **./build/file-retrieval-server 127.0.0.1 12345**. On the client side, there are two changes.
-To demonstrate the changes I'm using the command - 
+The server command is **./build/file-retrieval-server 127.0.0.1 12345**.
+
+
 **./build/file-retrieval-client 1 16 127.0.0.1 12345**
 I have implemented a range-based folder fetching functionality, I used this to make the testing easier.
-So the second argument 1 represents the first folder(starting folder of the range) and the 16 represents the last folder of the range.
-So if you use the above command for example like - **./build/file-retrieval-client 1 3 127.0.0.1 12345**, it starts the client with that range and when the path is provided on the index command,
+So, the second argument 1 represents the first folder(starting folder of the range) and the 16 represents the last folder of the range.
+
+If you use the above command for example like - **./build/file-retrieval-client 1 3 127.0.0.1 12345**, it starts the client with that range and when the path is provided on the index command,
 like for example index **../datasets/Dataset1**, then the folders that get selected for the indexing are **../datasets/Dataset1/folder1/**, **../datasets/Dataset1/folder2/**, **../datasets/Dataset1/folder3/**.
 The second and third parameters are address and port.
 
