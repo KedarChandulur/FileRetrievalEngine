@@ -1,4 +1,3 @@
-@ -0,0 +1,100 @@
 ## FileRetrievalEngine
 **CSC435 Programming Assignment 1 (Winter 2024)**
 
