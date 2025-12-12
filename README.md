@@ -11,6 +11,7 @@ So, the second argument 1 represents the first folder(starting folder of the ran
 
 If you use the above command for example like - **./build/file-retrieval-client 1 3 127.0.0.1 12345**, it starts the client with that range and when the path is provided on the index command,
 like for example index **../datasets/Dataset1**, then the folders that get selected for the indexing are **../datasets/Dataset1/folder1/**, **../datasets/Dataset1/folder2/**, **../datasets/Dataset1/folder3/**.
+
 The second and third parameters are address and port.
 
 ### Requirements
