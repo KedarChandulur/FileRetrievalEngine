@@ -1,19 +1,21 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/hqM0T4I-)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13724761&assignment_repo_type=AssignmentRepo)
-## CSC435 Programming Assignment 2 (Winter 2024)
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/bn26Dqcl)
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13978188&assignment_repo_type=AssignmentRepo)
+## CSC435 Programming Assignment 3 (Winter 2024)
 **Jarvis College of Computing and Digital Media - DePaul University**
 
 **Student**: Kedar Chandulur (kchandul@depaul.edu)  
 **Solution programming language**: C++
 
 ### Custom command
-For running a search on 100 random elements.  
-Make a text file and Add 100 words. Each word is in a new line. Make sure you add a minimum of 100 words.
-To run the search on the text file,  
-Use the command s100 <path-to-text-file>  
-For example: s100 ../test/queries.txt
 
-Note: I took the reference of words from here: https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1102/assignments/dictionary.txt
+The server command is **./build/file-retrieval-server 127.0.0.1 12345**. On the client side, there are two changes.
+To demonstrate the changes I'm using the command - 
+**./build/file-retrieval-client 1 16 127.0.0.1 12345**
+I have implemented a range-based folder fetching functionality, I used this to make the testing easier.
+So the second argument 1 represents the first folder(starting folder of the range) and the 16 represents the last folder of the range.
+So if you use the above command for example like - **./build/file-retrieval-client 1 3 127.0.0.1 12345**, it starts the client with that range and when the path is provided on the index command,
+like for example index **../datasets/Dataset1**, then the folders that get selected for the indexing are **../datasets/Dataset1/folder1/**, **../datasets/Dataset1/folder2/**, **../datasets/Dataset1/folder3/**.
+The second and third parameters are address and port.
 
 ### Requirements
 
@@ -60,46 +62,150 @@ cmake -S . -B build
 cmake --build build
 ```
 
-#### How to run application
+#### How to run applications
 
-To run the C++ solution (after you build the project) use the following command:
+To run the C++ server (after you build the project) use the following command:
 ```
-./build/file-retrieval-engine
-> <index | search | quit>
+./build/file-retrieval-server
+> <list | quit>
 ```
 
-#### Example
-
+To run the C++ client (after you build the project) use the following command:
 ```
-./build/file-retrieval-engine
-> index ../datasets/Dataset1
-Completed indexing in 10.386 seconds
+./build/file-retrieval-client
+> <connect | index | search | quit>
+```
+
+#### Example (2 clients and 1 server)
+
+**Step 1:** start the server:
+
+Server
+```
+./build/file-retrieval-server
+>
+```
+
+**Step 2:** start the clients and connect them to the server:
+
+Client 1
+```
+./build/file-retrieval-client
+> connect 127.0.0.1 12345
+Connection successful!
+```
+
+Client 2
+```
+./build/file-retrieval-client
+> connect 127.0.0.1 12345
+Connection successful!
+```
+
+**Step 3:** list the connected clients on the server:
+
+Server
+```
+> list
+client1: 127.0.0.1 5746
+client2: 127.0.0.1 9677
+```
+
+**Step 4:** index files from the clients:
+
+Client 1
+```
+> index ../datasets/Dataset1/folder1
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder3
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder5
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder7
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder9
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder11
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder13
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder15
+Completed indexing in 1.386 seconds
+```
+
+Client 2
+```
+> index ../datasets/Dataset1/folder2
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder4
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder6
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder8
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder10
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder12
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder14
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder16
+Completed indexing in 1.386 seconds
+```
+
+**Step 5:** search files from the clients:
+
+Client 1
+```
 > search Worms
 Search completed in 2.8 seconds
 Search results (top 10):
-* folder6/document200.txt 11
-* folder14/document417.txt 4
-* folder6/document424.txt 4
-* folder11/document79.txt 1
-* folder12/document316.txt 1
-* folder13/document272.txt 1
-* folder13/document38.txt 1
-* folder15/document351.txt 1
-* folder1/document260.txt 1
-* folder4/document101.txt 1
+* client2:folder6/document200.txt 11
+* client2:folder14/document417.txt 4
+* client2:folder6/document424.txt 4
+* client1:folder11/document79.txt 1
+* client2:folder12/document316.txt 1
+* client1:folder13/document272.txt 1
+* client1:folder13/document38.txt 1
+* client1:folder15/document351.txt 1
+* client1:folder1/document260.txt 1
+* client2:folder4/document101.txt 1
+```
+
+Client 2
+```
 > search distortion AND adaptation
 Search completed in 3.27 seconds
 Search results (top 10):
-* folder6/document200.txt 57
-* folder7/document476.txt 5
-* folder13/document38.txt 4
-* folder6/document408.txt 3
-* folder7/document298.txt 3
-* folder10/document107.txt 2
-* folder10/document206.txt 2
-* folder10/document27.txt 2
-* folder14/document145.txt 2
-* folder15/document351.txt 2
+* client2:folder6/document200.txt 57
+* client1:folder7/document476.txt 5
+* client1:folder13/document38.txt 4
+* client2:folder6/document408.txt 3
+* client1:folder7/document298.txt 3
+* client2:folder10/document107.txt 2
+* client2:folder10/document206.txt 2
+* client2:folder10/document27.txt 2
+* client2:folder14/document145.txt 2
+* client1:folder15/document351.txt 2
+> quit
+```
+
+**Step 6:** close and disconnect the clients:
+
+Client 1
+```
+> quit
+```
+
+Client 2
+```
+> quit
+```
+
+**Step 7:** close the server:
+
+Server
+```
 > quit
 ```
 
@@ -115,42 +221,145 @@ mvn package
 
 #### How to run application
 
-To run the Java solution (after you build the project) use the following command:
+To run the Java server (after you build the project) use the following command:
 ```
-java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalEngine
+java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalServer
 ```
 
-#### Example
-
+To run the Java client (after you build the project) use the following command:
 ```
-java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalEngine
-> index ../datasets/Dataset1
-Completed indexing in 10.386 seconds
+java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalClient
+```
+
+#### Example (2 clients and 1 server)
+
+**Step 1:** start the server:
+
+Server
+```
+java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalServer
+>
+```
+
+**Step 2:** start the clients and connect them to the server:
+
+Client 1
+```
+java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalClient
+> connect 127.0.0.1 12345
+Connection successful!
+```
+
+Client 2
+```
+java -cp target/app-java-1.0-SNAPSHOT.jar csc435.app.FileRetrievalClient
+> connect 127.0.0.1 12345
+Connection successful!
+```
+
+**Step 3:** list the connected clients on the server:
+
+Server
+```
+> list
+client1: 127.0.0.1 5746
+client2: 127.0.0.1 9677
+```
+
+**Step 4:** index files from the clients:
+
+Client 1
+```
+> index ../datasets/Dataset1/folder1
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder3
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder5
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder7
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder9
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder11
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder13
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder15
+Completed indexing in 1.386 seconds
+```
+
+Client 2
+```
+> index ../datasets/Dataset1/folder2
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder4
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder6
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder8
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder10
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder12
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder14
+Completed indexing in 1.386 seconds
+> index ../datasets/Dataset1/folder16
+Completed indexing in 1.386 seconds
+```
+
+**Step 5:** search files from the clients:
+
+Client 1
+```
 > search Worms
 Search completed in 2.8 seconds
 Search results (top 10):
-* folder6/document200.txt 11
-* folder14/document417.txt 4
-* folder6/document424.txt 4
-* folder11/document79.txt 1
-* folder12/document316.txt 1
-* folder13/document272.txt 1
-* folder13/document38.txt 1
-* folder15/document351.txt 1
-* folder1/document260.txt 1
-* folder4/document101.txt 1
+* client2:folder6/document200.txt 11
+* client2:folder14/document417.txt 4
+* client2:folder6/document424.txt 4
+* client1:folder11/document79.txt 1
+* client2:folder12/document316.txt 1
+* client1:folder13/document272.txt 1
+* client1:folder13/document38.txt 1
+* client1:folder15/document351.txt 1
+* client1:folder1/document260.txt 1
+* client2:folder4/document101.txt 1
+```
+
+Client 2
+```
 > search distortion AND adaptation
 Search completed in 3.27 seconds
 Search results (top 10):
-* folder6/document200.txt 57
-* folder7/document476.txt 5
-* folder13/document38.txt 4
-* folder6/document408.txt 3
-* folder7/document298.txt 3
-* folder10/document107.txt 2
-* folder10/document206.txt 2
-* folder10/document27.txt 2
-* folder14/document145.txt 2
-* folder15/document351.txt 2
+* client2:folder6/document200.txt 57
+* client1:folder7/document476.txt 5
+* client1:folder13/document38.txt 4
+* client2:folder6/document408.txt 3
+* client1:folder7/document298.txt 3
+* client2:folder10/document107.txt 2
+* client2:folder10/document206.txt 2
+* client2:folder10/document27.txt 2
+* client2:folder14/document145.txt 2
+* client1:folder15/document351.txt 2
+> quit
+```
+
+**Step 6:** close and disconnect the clients:
+
+Client 1
+```
+> quit
+```
+
+Client 2
+```
+> quit
+```
+
+**Step 7:** close the server:
+
+Server
+```
 > quit
 ```
