@@ -1,4 +1,4 @@
-## CSC435 Extra Credit Assignment 2 (Winter 2024)
+## FileRetrievalEngine
 **Jarvis College of Computing and Digital Media - DePaul University**
 
 **Student**: Kedar Chandulur (kchandul@depaul.edu)  
