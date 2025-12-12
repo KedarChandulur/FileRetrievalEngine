@@ -1,10 +1,4 @@
 ## FileRetrievalEngine
-**CSC435 Programming Assignment 3 (Winter 2024)**
-
-**Jarvis College of Computing and Digital Media - DePaul University**
-
-**Student**: Kedar Chandulur (kchandul@depaul.edu)  
-**Solution programming language**: C++
 
 ### Custom command
 
