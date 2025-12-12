@@ -9,7 +9,7 @@
 
 ### Requirements
 
-If you are implementing your solution in C++ you will need to have GCC 12.x and CMake 3.22.x installed on your system. On Ubuntu 22.04 you can install GCC and set it as default compiler using the following commands:
+You will need to have GCC 12.x and CMake 3.22.x installed on your system. On Ubuntu 22.04 you can install GCC and set it as default compiler using the following commands:
 
 ```
 sudo apt install g++-12 gcc-12 cmake
@@ -19,13 +19,6 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120
 sudo update-alternatives --remove-all g++
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 120
-```
-
-If you are implementing your solution in Java you will need to have Java 1.7.x and Maven 3.6.x installed on your systems. On Ubuntu 22.04 you can install Java and Maven using the following commands:
-
-```
-sudo apt install openjdk-17-jdk maven
-
 ```
 
 ### Setup
