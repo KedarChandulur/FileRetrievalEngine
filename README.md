@@ -1,5 +1,6 @@
 ## FileRetrievalEngine
 **CSC435 Programming Assignment 4 (Winter 2024)**
+
 **Jarvis College of Computing and Digital Media - DePaul University**
 
 **Student**: Kedar Chandulur (kchandul@depaul.edu)  
