@@ -1,4 +1,42 @@
-## FileRetrievalEngine
+# FileRetrievalEngine
+
+A distributed, multi-client/server file indexing and search system built for a Distributed Systems course.  
+It focuses on application layering, multithreaded indexing, and query processing over large text datasets.
+
+## Overview
+
+The engine follows a layered architecture (AppInterface, ProcessingEngine, IndexStore).  
+Indexing uses multiple worker threads to speed up processing on large datasets, and search supports AND queries.
+
+
+## Requirements
+
+You will need to have GCC 12.x and CMake 3.22.x installed on your system. On Ubuntu 22.04 you can install GCC and set it as default compiler using the following commands:
+
+```
+sudo apt install g++-12 gcc-12 cmake
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 120
+```
+
+## Dataset setup
+
+This project is evaluated using 5 Gutenberg-style datasets (Dataset1–Dataset5), each containing 16 folders of TXT documents.  
+Do not commit datasets (raw/cleaned/intermediate outputs) to GitHub.
+
+Please contact me for the datasets link.
+
+After downloading, place datasets under a `datasets/` directory at the repository root.
+Here is an example on how you can copy Dataset1 to the remote machine and how to unzip the dataset:
+
+```
+remote-computer$ mkdir datasets
+local-computer$ scp Dataset1.zip cc@<remote-ip>:<path-to-repo>/datasets/.
+remote-computer$ cd <path-to-repo>/datasets
+remote-computer$ unzip Dataset1.zip
+```
 
 ### Custom command
 
@@ -13,33 +51,6 @@ If you use the above command for example like - **./build/file-retrieval-client 
 like for example index **../datasets/Dataset1**, then the folders that get selected for the indexing are **../datasets/Dataset1/folder1/**, **../datasets/Dataset1/folder2/**, **../datasets/Dataset1/folder3/**.
 
 The second and third parameters are address and port.
-
-### Requirements
-
-You will need to have GCC 12.x and CMake 3.22.x installed on your system. On Ubuntu 22.04 you can install GCC and set it as default compiler using the following commands:
-
-```
-sudo apt install g++-12 gcc-12 cmake
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 120
-```
-
-### Setup
-
-There are 5 datasets (Dataset1, Dataset2, Dataset3, Dataset4, Dataset5) that you need to use to evaluate your solution. Before you can evaluate your solution you need to download the datasets.
-
-Datasets: https://drive.google.com/file/d/1Oo-BzVuDzI1aUtgAcAtMkpp2qi4rwiex/view?usp=sharing
-
-After you finished downloading the datasets copy them to the dataset directory (create the directory if it does not exist). Here is an example on how you can copy Dataset1 to the remote machine and how to unzip the dataset:
-
-```
-remote-computer$ mkdir datasets
-local-computer$ scp Dataset1.zip cc@<remote-ip>:<path-to-repo>/datasets/.
-remote-computer$ cd <path-to-repo>/datasets
-remote-computer$ unzip Dataset1.zip
-```
 
 ### C++ solution
 #### How to build/compile
