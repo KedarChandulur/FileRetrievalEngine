@@ -209,3 +209,8 @@ Server
 ```
 > quit
 ```
+
+
+### Stats
+<img width="724" height="668" alt="image" src="https://github.com/user-attachments/assets/c1fb8c00-6e8a-441d-b779-87530c40542f" />
+<img width="890" height="671" alt="image" src="https://github.com/user-attachments/assets/743eceb4-4bd0-4857-bd65-4bb1065b586c" />
